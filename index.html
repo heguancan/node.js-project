@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>登录页面</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="loginpage">
+    <div class="loginbox ">
+        <div class="loginboxinner">
+            <div class="loginlogo text-center">
+                <h1 class="text-center text-capitalize h1color">
+                    Hgc.
+                    <span class="text-danger">admin</span>
+                </h1>
+                <span>本系统仅供本人使用</span>
+            </div>
+            <div class="form-group form-group1 ">
+                <div class="input-group logininput ">
+                    <div class="input-group-addon glyphicon glyphicon-user" style="top:0px;" ></div>
+                    <input type="text" class="form-control username" id="username" placeholder="Username" name="username"></div>
+            </div>
+            <div class="form-group form-group1 ">
+                <div class="input-group logininput ">
+                    <div class="input-group-addon glyphicon glyphicon-lock" style="top:0px;"></div>
+                    <input type="password" class="form-control password" id="password" placeholder="Password" name="password"></div>
+            </div>
+            <button  class="btn btn-warning btn-block logininput ">登录</button>
+            <div class="checkbox">
+                <label>
+                    <p class="passwordstyle">
+                        <a href="register.html" class="goregister">没有账号,前往注册</a>
+                    </p>
+                    <p class="passwordstyle">
+                        <a href="1/index.html" class="goregister">乐窝网</a>  
+                        <a href="2/index.html" class="goregister">leafpub</a>
+                        <a href="3/index.html" class="goregister">千寻网</a>
+                    </p>
+                </label>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    $(function(){
+        $('.btn').click(function(){
+            var name=$('.username').val();
+            var password=$('.password').val();
+            var data={"name":name,"password":password}
+            $.post('http://182.61.31.37:8080/find',data,function(data,textStatus,xhr){
+                if(data==1){
+                    alert('恭喜你登陆成功了哦');
+                    self.location='studentms.html'; 
+                }
+                if(data==0){
+                    alert('你的登陆信息不正确哦');
+                }
+
+           })
+        })
+    })
+    </script>
+</body>
+</html>

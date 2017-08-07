@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>学生管理系统后台</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/login.css"></head>
+<body class="loginpage">
+	<h1 class="text-center text-primary">学生管理系统</h1>
+
+	<div class="loginboxinner">
+		<div class="loginlogo text-center">
+			<span style="color:white;">本系统仅供本人使用</span>
+		</div>
+		<div class="input-group search-box">
+			<input type="text" class="form-control getsearch" placeholder="Please start your search!" aria-describedby="basic-addon2">
+			<span class="input-group-addon glyphicon glyphicon-search search-top" id="basic-addon2"></span>
+		</div>
+	</div>
+
+	<div class="loginboxinner">
+		<div class="loginlogo text-center">
+			<button class="btn btn-success addstu" style="color:yellow;">插入学生数据</button>
+		</div>
+	</div>
+
+	<div class="loginbox insertbox">
+		<div class="form-group form-group1 ">
+			<div class="input-group logininput ">
+				<div class="input-group-addon glyphicon glyphicon-user" style="top:0px;" ></div>
+				<input type="text" class="form-control username" id="username" placeholder="请输入学生名字" name="username"></div>
+		</div>
+		<div class="form-group form-group1 ">
+			<div class="input-group logininput ">
+				<div class="input-group-addon glyphicon glyphicon-book" style="top:0px;" ></div>
+				<input type="email" class="form-control classroom " id="class" placeholder="请输入学生班级" name="class" required="required"></div>
+		</div>
+		<div class="form-group form-group1 ">
+			<div class="input-group logininput ">
+				<div class="input-group-addon glyphicon  glyphicon-heart-empty" style="top:0px;"></div>
+				<div class="form-group">
+					<select class="form-control sex " id="sex">
+						<option value="男">男</option>
+						<option value="女">女</option>
+					</select>
+				</div>
+
+			</div>
+			<div class="form-group form-group1 ">
+				<div class="input-group logininput ">
+					<div class="input-group-addon glyphicon  glyphicon-send" style="top:0px;"></div>
+					<input type="number" class="form-control repassword age" id="repassword" placeholder="请输入学生年龄" name="repassword" min="6" max="100"></div>
+			</div>
+			<button class="btn btn-warning btn-block logininput stubtn " >插入学生信息</button>
+		</div>
+	</div>
+
+	<div class="loginboxinner">
+		<div class="loginlogo text-center">
+			<span style="color:white;">来自后台获取到的数据</span>
+		</div>
+		<div class="input-group"></div>
+	</div>
+	<div class="box container">
+	</div>
+	<div class="pagebtn"><span class="btn btn-success btn1"><</span><span class="btn btn-success btn2">></span></div>
+	<div class="loginboxinner">
+		<div class="loginlogo text-center">
+			<span style="color:white;">©2017 HeGuanCan 使用本网站前必读 意见反馈 粤ICP证666666号  粤公网安备00001号</span>
+		</div>
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script src='js/doT.min.js'></script>
+	<script type='text/doT' class="abc">
+    {{~it:item}}
+         <tr class="container table-bordered studenttr">
+              <td><input class="btn btn-primary" type="text" value={{=item.name}}></td>
+              <td><input class="btn btn-success" type="text" value={{=item.class}}></td>
+              <td>
+              {{? item.sex === '男'}}
+              <select class="form-control sexv btn-info" onchange="changeColor(event);" >
+						<option value="男" selected="selected">男</option>
+						<option value="女">女</option>
+			  </select>
+              {{??}}
+              <select class="form-control btn sexv btn-danger" onchange="changeColor(event);">
+						<option value="男">男</option>
+						<option value="女" selected="selected">女</option>
+			  </select>
+              {{?}}
+
+			  </td>
+              <td><input class="btn btn-warning" type="number" value={{=item.age}}></td>
+              <td><button class="btn btn-inverse" onclick="modifystudent(event)" name={{=item._id}}>修改</button></td>
+              <td><button class="btn btn-danger" onclick="removestudent(event)">删除</button></td>
+
+         </tr>         
+    {{~}}	
+    </script>
+	<script>
+		var changeColor = function(event) {
+			if(event.target.value == '男'){
+               event.target.style.backgroundColor = "#5bc0de";  
+			}else{
+			   event.target.style.backgroundColor = "#d9534f";
+			}
+		}
+
+		function modifystudent(event){
+			var name=event.target.parentNode.parentNode.childNodes[1].childNodes[0].value;
+			var classroom=event.target.parentNode.parentNode.childNodes[3].childNodes[0].value;
+			var sex=event.target.parentNode.parentNode.childNodes[5].childNodes[1].value;
+			var age=event.target.parentNode.parentNode.childNodes[7].childNodes[0].value;
+			var id =event.target.parentNode.parentNode.childNodes[9].childNodes[0].name;
+			var data={  "id":id,
+	            		"name":name,
+	            		"class":classroom,
+	            		"sex":sex,
+	            		"age":age
+	            	}
+	        $.post('http://182.61.31.37:8080/updatestudent',data,function(data,textStatus,xhr){
+	        	    alert('修改成功');
+		         	window.location.reload();
+		         	})
+	        
+            
+        }
+
+        function removestudent(event){
+        	var id =event.target.parentNode.parentNode.childNodes[9].childNodes[0].name;
+        	var data={"id":id}
+        	$.post('http://182.61.31.37:8080/deletestudent',data,function(data,textStatus,xhr){
+        		     alert('删除成功');
+                     window.location.reload();	
+		         	})
+        }
+
+		$(function(){
+
+			$('.addstu').click(function(){
+				$('.insertbox').fadeToggle();
+				if($('.addstu').html() == '插入学生数据'){
+					$('.addstu').html('突然不想插入学生数据了');
+				}else{
+					$('.addstu').html('插入学生数据');
+				}
+
+			})
+            
+         $('.stubtn').click(function(event) {
+         	var name=$('.username').val();
+         	var classroom=$('.classroom').val();
+         	var sex=document.getElementById('sex');
+         	var sexindex=sex.selectedIndex;
+         	    sex=sex.options[sexindex].value;
+         	var age=$('.age').val();
+
+         	if(name!=''&&classroom!=''&&sex!=''&&age!=''){
+	            if(age>100||age<0){
+	              alert('你输入的年龄有点不对哦');
+	            }else{
+	            	var data={
+	            		"name":name,
+	            		"class":classroom,
+	            		"sex":sex,
+	            		"age":age
+	            	}
+		         	$.post('http://182.61.31.37:8080/insertstudent',data,function(data,textStatus,xhr){
+		         		alert('插入成功哦');
+		         		$('insertbox').css('display', 'none');
+		         		window.location.reload();
+		         	})
+	            }
+            }else{
+            	alert('你的学生数据不能有空哦');
+            }
+
+
+
+         });
+
+
+         $.post('http://182.61.31.37:8080/findallstudent',function(result){
+         	    console.log(result);
+         	    result=JSON.parse(result);
+         	    var rows=result.length;
+         	        if(rows>4){
+         	        	$('.btn1').css('display', 'block');
+         	        	$('.btn2').css('display', 'block');
+         	        }
+         	    var row1=parseInt(result.length/4);
+         	        if(result.length%4==0){
+         	        	row1=row1;
+         	        }else{
+         	        	row1=row1+1;
+         	        }
+         	    result=result.reverse();
+         	    result= JSON.stringify(result); 
+         	    var sex=document.getElementById('sex');
+         	    var sexindex=sex.selectedIndex;
+         	    sex=sex.options[sexindex].value;
+         	    var age=$('.age').val();
+
+
+                $('.search-top').click(function(event) {
+                	
+                	var name=$('.getsearch').val();
+                	console.log(name);
+                	var data={
+              
+                	  "name":name
+                	}
+                    console.log(data);
+                	$.post('http://182.61.31.37:8080/findstudent',data,function(result,textStatus,xhr){
+                		console.log(result);
+                		result=JSON.parse(result);
+                		result=result.reverse();
+                		result= JSON.stringify(result);
+                        var list=(JSON.parse(result));
+                        var ht=doT.template($('.abc').html());
+                        var str=ht(list);
+
+                $('.box').html(str);
+                		
+		         	})
+		         	
+                });
+
+
+         	    var list=(JSON.parse(result));
+                var ht=doT.template($('.abc').html());
+                
+                var str=ht(list);
+
+                $('.box').html(str);
+
+
+                var row=1;
+                $('.btn1').click(function(){
+                	 if(row>1){
+                	 	row=row-1;
+                	 }else{
+                	 	row=1;
+                	 }
+                    console.log(row);
+                	data={
+                		"row":row,
+                		"rows":rows
+                	}
+
+                	console.log(row);
+                	console.log(rows);
+
+            	    $.post('http://182.61.31.37:8080/pageallstudent',data,function(result,textStatus,xhr){
+            		console.log(result);
+            		result=JSON.parse(result);
+            		result=result.reverse();
+            		result= JSON.stringify(result);
+                    var list=(JSON.parse(result));
+                    var ht=doT.template($('.abc').html());
+                    var str=ht(list);
+                    $('.box').html(str);
+                    })
+
+                })
+     
+                $('.btn2').click(function(){
+                	 if(row<row1){
+                	 	row=row+1;
+                	 }else{
+                	 	row=row1;
+                	 }  
+                 	data={
+                		"row":row,
+                		"rows":rows
+                	}
+
+                	console.log(row);
+                	console.log(rows);
+
+
+            	    $.post('http://182.61.31.37:8080/pageallstudent',data,function(result,textStatus,xhr){
+            		console.log(result);
+            		result=JSON.parse(result);
+            		result=result.reverse();
+            		result= JSON.stringify(result);
+                    var list=(JSON.parse(result));
+                    var ht=doT.template($('.abc').html());
+                    var str=ht(list);
+                    $('.box').html(str);             	
+                })
+            })
+               
+               // console.log(row);
+
+    		})
+
+
+
+
+
+		})
+	</script></body>
+</html>

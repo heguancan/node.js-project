@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>注册页面</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/login.css"></head>
+<body class="loginpage">
+	<div class="loginbox ">
+		<div class="loginboxinner">
+			<div class="loginlogo text-center">
+				<h1 class="text-center text-capitalize h1color">
+					Hgc.
+					<span class="text-danger">admin</span>
+				</h1>
+				<span>本系统仅供本人使用</span>
+			</div>
+			<div class="form-group form-group1 ">
+				<div class="input-group logininput ">
+					<div class="input-group-addon glyphicon glyphicon-user" style="top:0px;" ></div>
+					<input type="text" class="form-control username" id="username" placeholder="Username" name="username"></div>
+			</div>
+			<div class="form-group form-group1 ">
+				<div class="input-group logininput ">
+					<div class="input-group-addon glyphicon glyphicon-envelope" style="top:0px;" ></div>
+					<input type="email" class="form-control username email" id="email" placeholder="e-mail" name="email" required="required"></div>
+			</div>
+			<div class="form-group form-group1 ">
+				<div class="input-group logininput ">
+					<div class="input-group-addon glyphicon glyphicon-lock" style="top:0px;"></div>
+					<input type="password" class="form-control password" id="password" placeholder="Password" name="password"></div>
+			</div>
+			<div class="form-group form-group1 ">
+				<div class="input-group logininput ">
+					<div class="input-group-addon glyphicon glyphicon-lock" style="top:0px;"></div>
+					<input type="password" class="form-control repassword" id="repassword" placeholder="repassword" name="repassword"></div>
+			</div>
+			<button class="btn btn-warning btn-block logininput " >注册</button>
+			<div class="checkbox">
+				<label>
+					<p class="passwordstyle">
+						<a href="index.html" class="goregister">已有账号,前往登陆</a>
+					</p>
+				</label>
+			</div>
+		</div>
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script>
+		$(function () {
+		    $('.btn').click(function(){
+		        var name=$('.username').val();
+		        var password=$('.password').val();
+		        var repassword=$('.repassword').val();
+		        var email=$('.email').val();
+		        var zz=/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+		        if(name!=''&&password!=''&&repassword!=''&&email!=''){
+		        	
+		        	if(zz.test(email)){
+
+			        if(password==repassword){
+			        var data={"name":name,"password":password,"email":email}
+
+	                $.post('http://182.61.31.37:8080/insert',data,function(data,textStatus,xhr){
+
+	                	alert('注册成功');
+	                	self.location='index.html'; 
+
+	                })
+
+			        }else{
+			        	alert('两次密码输入不一致,请重新输入');
+			        }
+
+			    }else{
+			    	alert('你输入的邮箱不正确,请重新输入')
+			    }
+
+		        }else{
+		        	alert('输入错误,注册信息不能为空');
+		        }
+		
+		    })
+
+		    $('.username').blur(function(){
+               var name=$('.username').val();
+               var data={"name":name}
+                $.post('http://182.61.31.37:8080/user',data,function(data,textStatus,xhr){
+	                    if(data==1){
+                            
+	                    	alert('该用户已经注册,请重新注册');
+	                    	window.location.reload();
+
+	                    }
+	            })
+		    })
+		})
+	</script>
+</body>
+</html>

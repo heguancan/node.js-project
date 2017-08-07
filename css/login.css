@@ -1,0 +1,134 @@
+/*
+* @Author: hp
+* @Date:   2017-05-10 09:57:25
+* @Last Modified by:   hp
+* @Last Modified time: 2017-05-10 16:28:36
+*/
+.loginpage{background: url(../images/patternbg.png);}
+
+.loginbox {
+    width: 350px;
+    padding: 5px;
+    background: #fff;
+    margin: 7% auto 0 auto;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+    
+}
+
+.loginboxinner{
+	background: #32415a url(../images/patternbg.png);
+	padding: 20px; 
+
+}
+
+.loginboxinner .loginlogo h1 {
+    font-family: 'RobotoCondensed', Arial, Helvetica, sans-serif;
+    font-size: 32px;
+    color: #fff;
+    border-bottom: 1px solid #56647d;
+    line-height: normal;
+    margin-bottom: 5px;
+}
+
+.loginlogo>span{
+	color:#666;
+	font-size: 14px;
+	line-height: 21px;
+}
+
+.loginform{
+	margin-top: 66px;
+}
+
+.logininput,.logininput>input{
+	height: 43px;
+}
+
+.form-group1{
+	margin:25px 0px;
+}
+
+.passwordstyle{
+	color:#666;
+}
+
+@media screen and (max-width: 400px){
+
+.loginbox {
+    width: auto;
+    margin: 10px;
+    background: none;
+    box-shadow: none;
+}
+
+.loginpage {
+    background: url(../images/patternbg.png) repeat scroll 0 0 #32415A;
+}
+
+}
+
+.goregister:hover{
+    color: yellow;
+    text-decoration: none;
+}
+
+.sex{
+    height: 43px;
+}
+.search-top{
+    top: 0px;
+}
+
+.insertbox{
+        margin: 2% auto 0 auto;
+        display: none;
+}
+
+.search-box{
+        margin-bottom: 10px;
+}
+
+.studenttr td input{
+    margin:28px 50px;
+    height: 32px;
+}
+
+.studenttr td button{
+
+    margin:28px 15px;
+}
+
+.box{
+    height: 380px;
+    overflow:hidden;
+    overflow-x: auto;
+
+}
+
+
+.sexv {
+    width: 62px;
+}
+
+
+.pagebtn {
+    position:relative;
+    bottom: 0px;
+    height: 50px;
+}
+
+.btn1{
+   position: absolute;
+   bottom: 0px;
+   left: 30%;
+   display: none;
+   
+}
+
+.btn2{
+   position: absolute;
+   bottom: 0px;
+   right: 30%;
+   display: none;
+}
